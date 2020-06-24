@@ -147,9 +147,11 @@ const connection = function(next) {
     if (err) {
       return next(`Connection Error: ${err}`);
     }
+    console.log('Connection successful');
+
     client.db('formio');
 
-    console.log('Connection successful');
+    console.log('Found formio database');
 
     return next();
   });
