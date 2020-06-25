@@ -143,18 +143,23 @@ const connection = function(next) {
   console.log('MongoConfig', mongoConfig);
 
   // Establish a connection and continue with execution.
-  MongoClient.connect(dbUrl, mongoConfig, function(err, client) {
-    if (err) {
-      return next(`Connection Error: ${err}`);
-    }
-    console.log('Connection successful');
+  try {
+    MongoClient.connect(dbUrl, mongoConfig, function(err, client) {
+      if (err) {
+        return next(`Connection Error: ${err}`);
+      }
+      console.log('Connection successful');
 
-    client.db('formio');
+      client.db('formio');
 
-    console.log('Found formio database');
+      console.log('Found formio database');
 
-    return next();
-  });
+      return next();
+    });
+  }
+  catch (err) {
+    next(err);
+  }
 };
 
 /**
